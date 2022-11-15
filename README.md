@@ -1,7 +1,5 @@
-# smsk_popoolation: A Snakemake pipeline for population genomics
+# smsk_snps: A Snakemake pipeline for SNP calling
 
-[![Build Status](https://travis-ci.org/jlanga/smsk_popoolation.svg?branch=master)](https://travis-ci.org/jlanga/smsk_popoolation)
-[![DOI](https://zenodo.org/badge/76841262.svg)](https://zenodo.org/badge/latestdoi/76841262)
 
 ## 1. Description
 
@@ -9,26 +7,24 @@ This is a repo that contains installers and snakemake scripts to execute the pip
 
 - QC with Trimmomatic
 
-- Mapping with Bowtie2
+- Mapping with bwa
 
 - BAM wrangling and SNP calling with samtools
 
-- Population measures with popoolation
+- SNP calling with bcftools
 
-- Pairwise comparisons between populations with popoolation2
 
 ## 2. First steps
 
-Follow the contents of the `.travis.yml` file:
 
 1. Install ([ana](https://www.continuum.io/downloads)|[mini](http://conda.pydata.org/miniconda.html))conda
 
 2. Clone and install the software
 
     ```sh
-    git clone https://github.com/jlanga/smsk_popoolation.git smsk_popoolation
-    cd smsk_popoolation
-    snakemake --use-conda --create-envs-only
+    git clone https://github.com/jlanga/smsk_snps.git smsk_snps
+    cd smsk_snps
+    snakemake --use-conda --conda-frontend mamba --create-envs-only
     ```
 
 3. Run the test dataset:
@@ -50,7 +46,7 @@ Follow the contents of the `.travis.yml` file:
 5. Execute the pipeline:
 
     ```sh
-    snakemake --use-conda -j
+    snakemake --use-conda --conda-frontend mamba -j 40
     ```
 
 ## Representation of the pipeline
