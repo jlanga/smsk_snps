@@ -15,7 +15,7 @@ trimmomatic:
 
 
 bwa:
-    threads: 2
+    threads: 40
     extra: ''
 
 bcftools:
