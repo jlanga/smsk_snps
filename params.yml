@@ -1,4 +1,3 @@
-# Execution params
 ---
 
 trimmomatic:
@@ -17,7 +16,7 @@ trimmomatic:
 
 bwa:
     threads: 2
-    extra: ""
+    extra: ''
 
 picard_markduplicates:
     memory_gb: 1

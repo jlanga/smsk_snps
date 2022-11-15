@@ -1,4 +1,3 @@
-# Environment for qc subworkflow
 ---
 channels:
     - conda-forge

@@ -3,4 +3,3 @@
 - Moved bin to src
 - Moved requirements.txt to front
 - Added changelog.txt
-

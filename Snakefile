@@ -13,10 +13,13 @@ params = yaml.load(open("params.yml", "r"), Loader=yaml.SafeLoader)
 features = yaml.load(open("features.yml", "r"), Loader=yaml.SafeLoader)
 samples = pd.read_table("samples.tsv")
 
+
 singularity: "docker://continuumio/miniconda3:4.4.10"
+
 
 # Folder variables
 include: "src/snakefiles/folders.smk"
+
 
 # Other variables
 POPULATIONS = samples["population"].drop_duplicates().values.tolist()

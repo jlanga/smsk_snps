@@ -1,28 +1,18 @@
 def get_adaptor(wildcards):
     pop = wildcards.population
     lib = wildcards.library
-    adaptor = (
-        samples
-        [(samples["population"] == pop) & (samples["library"] == lib)]
-        ["adaptor"]
-        .values
-        .tolist()
-        [0]
-    )
+    adaptor = samples[(samples["population"] == pop) & (samples["library"] == lib)][
+        "adaptor"
+    ].values.tolist()[0]
     return adaptor
 
 
 def get_phred(wildcards):
     pop = wildcards.population
     lib = wildcards.library
-    phred = (
-        samples
-        [(samples["population"] == pop) & (samples["library"] == lib)]
-        ["phred"]
-        .values
-        .tolist()
-        [0]
-    )
+    phred = samples[(samples["population"] == pop) & (samples["library"] == lib)][
+        "phred"
+    ].values.tolist()[0]
     return phred
 
 
@@ -45,25 +35,23 @@ rule qc_trimmomatic:
     Sequences will be stored permanently later on on CRAM
     """
     input:
-        fwd = RAW + "{population}.{library}_1.fq.gz",
-        rev = RAW + "{population}.{library}_2.fq.gz"
+        fwd=RAW + "{population}.{library}_1.fq.gz",
+        rev=RAW + "{population}.{library}_2.fq.gz",
     output:
-        fwd = temp(QC + "{population}.{library}_1.fq.gz"),
-        rev = temp(QC + "{population}.{library}_2.fq.gz"),
-        fwd_unp = temp(QC + "{population}.{library}_3.fq.gz"),
-        rev_unp = temp(QC + "{population}.{library}_4.fq.gz")
+        fwd=temp(QC + "{population}.{library}_1.fq.gz"),
+        rev=temp(QC + "{population}.{library}_2.fq.gz"),
+        fwd_unp=temp(QC + "{population}.{library}_3.fq.gz"),
+        rev_unp=temp(QC + "{population}.{library}_4.fq.gz"),
     params:
-        adaptor = get_adaptor,
-        phred = get_phred,
-        trimmomatic_params = get_trimmomatic_params
+        adaptor=get_adaptor,
+        phred=get_phred,
+        trimmomatic_params=get_trimmomatic_params,
     log:
-        QC + "{population}.{library}.trimmomatic_pe.log"
+        QC + "{population}.{library}.trimmomatic_pe.log",
     benchmark:
         QC + "{population}.{library}.trimmomatic_pe.bmk"
-    threads:
-        4
-    priority:
-        50  # Do this and later the mappings
+    threads: 4
+    priority: 50  # Do this and later the mappings
     conda:
         "qc.yml"
     shell:
@@ -82,14 +70,12 @@ rule qc_trimmomatic:
         2> {log} 1>&2
         """
 
+
 rule qc:
     input:
         [
             QC + population + "." + library + "_1.fq.gz"
             for population, library in (
-                samples
-                [["population", "library"]]
-                .values
-                .tolist()
+                samples[["population", "library"]].values.tolist()
             )
-        ]
+        ],

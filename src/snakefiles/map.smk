@@ -1,15 +1,14 @@
 rule map_bwa_index:
     """Index with bwa"""
     input:
-        fa = RAW + "genome.fa"
+        fa=RAW + "genome.fa",
     output:
-        mock = touch(MAP_INDEX + "genome"),
-        buckets = expand(
-            MAP_INDEX + "genome.{suffix}",
-            suffix="amb ann bwt pac sa".split()
-        )
+        mock=touch(MAP_INDEX + "genome"),
+        buckets=expand(
+            MAP_INDEX + "genome.{suffix}", suffix="amb ann bwt pac sa".split()
+        ),
     log:
-        MAP_INDEX + "bwa_index.log"
+        MAP_INDEX + "bwa_index.log",
     benchmark:
         MAP_INDEX + "bwa_index.bmk"
     conda:
@@ -29,21 +28,20 @@ def compose_rg_tag(wildcards):
 rule map_bwa_map:
     """Map population with bowtie2, sort with samtools, compress to cram"""
     input:
-        fwd = QC + "{population}.{library}_1.fq.gz",
-        rev = QC + "{population}.{library}_2.fq.gz",
-        fwd_unp = QC + "{population}.{library}_3.fq.gz",
-        rev_unp = QC + "{population}.{library}_4.fq.gz",
-        index = MAP_INDEX + "genome",
-        reference = RAW + "genome.fa"
+        fwd=QC + "{population}.{library}_1.fq.gz",
+        rev=QC + "{population}.{library}_2.fq.gz",
+        fwd_unp=QC + "{population}.{library}_3.fq.gz",
+        rev_unp=QC + "{population}.{library}_4.fq.gz",
+        index=MAP_INDEX + "genome",
+        reference=RAW + "genome.fa",
     output:
-        cram = protected(MAP + "{population}.{library}.cram")
+        cram=protected(MAP + "{population}.{library}.cram"),
     params:
-        extra = params["bwa"]["extra"],
-        rg_tag = compose_rg_tag
-    threads:
-        params["bwa"]["threads"]
+        extra=params["bwa"]["extra"],
+        rg_tag=compose_rg_tag,
+    threads: params["bwa"]["threads"]
     log:
-        MAP + "{population}.{library}.bwa_mem.log"
+        MAP + "{population}.{library}.bwa_mem.log",
     benchmark:
         MAP + "{population}.{library}.bwa_mem.bmk"
     conda:
@@ -75,8 +73,6 @@ rule map:
         [
             MAP + f"{population}.{library}.cram"
             for population, library in (
-                samples[["population", "library"]]
-                .values
-                .tolist()
+                samples[["population", "library"]].values.tolist()
             )
-        ]
+        ],
