@@ -15,8 +15,6 @@ trimmomatic:
         TOPHRED33
 
 
-# If you have lots of libraries, keep the number of threads to two,
-# if you have < 10, raise it. samtools sort is the bottleneck
 bwa:
     threads: 2
     extra: ""

@@ -24,9 +24,5 @@
     "mpileup_convert":
     {
         "time": "12:00:00"
-    },
-    "sync_mpileup2sync_chromosome":
-    {
-        "mem": 4000
     }
 }

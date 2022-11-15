@@ -2,6 +2,3 @@
 ---
 reference:
     dna: data/genome/2R.fa.gz
-
-chromosomes:
-    2R

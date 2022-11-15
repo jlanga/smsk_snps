@@ -5,6 +5,7 @@ channels:
     - bioconda
     - defaults
 dependencies:
-    - samtools=1.5.0
+    - samtools=1.16
+    - bcftools=1.16
     - python>=3
     - perl=5.22.0

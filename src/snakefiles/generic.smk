@@ -13,7 +13,7 @@ rule index_cram:
     shell: "samtools index {input}"
 
 rule index_fasta:
-    """Index a .fasta"""
+    """Index a .fasta .fa .fna .faa"""
     input: "{filename}"
     output: "{filename}.fai"
     conda: "generic.yml"

@@ -59,7 +59,7 @@ rule qc_trimmomatic:
     log:
         QC + "{population}.{library}.trimmomatic_pe.log"
     benchmark:
-        QC + "{population}.{library}.trimmomatic_pe.json"
+        QC + "{population}.{library}.trimmomatic_pe.bmk"
     threads:
         4
     priority:
