@@ -51,7 +51,7 @@ This is a repo that contains installers and snakemake scripts to execute the pip
 
 ## Representation of the pipeline
 
-![smsk_popoolation pipeline](https://cdn.rawgit.com/jlanga/smsk_popoolation/master/rulegraph.svg)
+![smsk_popoolation pipeline](https://cdn.rawgit.com/jlanga/smsk_snps/master/rulegraph.svg)
 
 ## Bibliography
 
