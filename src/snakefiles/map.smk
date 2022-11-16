@@ -35,10 +35,11 @@ rule map_bwa_map:
         index=MAP_INDEX + "genome",
         reference=RAW + "genome.fa",
     output:
-        cram=protected(MAP + "{population}.{library}.cram"),
+        cram=MAP + "{population}.{library}.cram",
     params:
         extra=params["bwa"]["extra"],
         rg_tag=compose_rg_tag,
+        tmp_folder=MAP + "{population}.{library}",
     threads: params["bwa"]["threads"]
     log:
         MAP + "{population}.{library}.bwa_mem.log",
@@ -60,6 +61,7 @@ rule map_bwa_map:
         | samtools sort \
             -l 9 \
             -o {output.cram} \
+            -T {params.tmp_folder} \
             --reference {input.reference} \
             --output-fmt CRAM \
             -@ {threads} \
